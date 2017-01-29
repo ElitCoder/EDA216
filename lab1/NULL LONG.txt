@@ -1,0 +1,19 @@
+CREATE VIEW IF NOT EXISTS has_cred AS
+SELECT SUM(credits) cred, s.ssn
+FROM taken_courses t, students s, courses c
+WHERE s.ssn LIKE t.ssn
+    AND t.course_code LIKE c.course_code
+GROUP BY s.ssn
+
+CREATE VIEW no_cred AS
+SELECT 0 cred, s.ssn
+FROM students s, courses
+WHERE s.ssn NOT IN (SELECT t.ssn
+                    FROM taken_courses t)
+GROUP BY s.ssn
+
+SELECT *
+FROM no_cred
+UNION
+SELECT *
+FROM has_cred
