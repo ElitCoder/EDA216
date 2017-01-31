@@ -1,0 +1,34 @@
+User
+- username PRIMARY KEY
+- name
+- address CAN BE NULL
+- telephone_number
+
+Theater
+- name PRIMARY KEY
+- seats PRIMARY KEY
+
+Movie
+- name PRIMARY KEY
+
+Performance
+- date PRIMARY KEY
+- movie_name FOREIGN KEY
+- theater_name FOREIGN KEY
+- theater_seats FOREIGN KEY
+
+Reservation
+- reservation_number PRIMARY KEY
+- movie_name FOREIGN KEY
+- date FOREIGN KEY
+
+User 1 -> Reservation *
+Theater 1 -> Performance *
+Movie 1 -> Performance *
+Performance 1 -> Reservation *
+
+users(USERNAME, name, address, telephone_number),
+theaters(NAME, SEATS),
+movies(NAME),
+performances(DATE, movie_name, theater_name, theater_seats),
+reservations(RESERVATION_NUMBER, movie_name, day)
