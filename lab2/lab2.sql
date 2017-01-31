@@ -8,44 +8,43 @@ DROP TABLE IF EXISTS reservations;
 
 PRAGMA foreign_keys=ON;
 
-CREATE TABLE users {
+CREATE TABLE users (
     username    VARCHAR(32) NOT NULL,
     address     VARCHAR(32),
     name        VARCHAR(32) NOT NULL,
     tel_nbr     VARCHAR(16) NOT NULL,
     PRIMARY KEY (username)
-};
+);
 
-CREATE TABLE theaters {
+CREATE TABLE theaters (
     name        VARCHAR(32) NOT NULL,
     seats       INT         NOT NULL,
     PRIMARY KEY (name, seats)
-};
+);
 
-CREATE TABLE movies {
+CREATE TABLE movies (
     name        VARCHAR(32) NOT NULL,
     PRIMARY KEY (name)
-};
+);
 
-CREATE TABLE performances {
+CREATE TABLE performances (
     date        DATE NOT NULL,
     movie_name  VARCHAR(32) NOT NULL,
     theater_name    VARCHAR(32) NOT NULL,
     theater_seats   INT NOT NULL,
     PRIMARY KEY (date),
     FOREIGN KEY (movie_name) references movies(name),
-    FOREIGN KEY (theater_name) references theaters(name),
-    FOREIGN KEY (theater_seats) references theaters(seats)
-};
+    FOREIGN KEY (theater_name, theater_seats) references theaters(name,seats)
+);
 
-CREATE TABLE reservations {
-    reservation_number  INT NOT NULL,
+CREATE TABLE reservations (
+    reservation_number  INT,
     movie_name          VARCHAR(32) NOT NULL,
     date                DATE NOT NULL,
     PRIMARY KEY (reservation_number),
     FOREIGN KEY (movie_name) references movies(name),
     FOREIGN KEY (date) references performances(date)
-};
+);
 
 INSERT INTO users           VALUES('jacka', 'Lund', 'NickoYeah', '112');
 
