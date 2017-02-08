@@ -19,7 +19,7 @@ CREATE TABLE users (
 CREATE TABLE theaters (
     name        VARCHAR(32) NOT NULL,
     seats       INT         NOT NULL,
-    PRIMARY KEY (name, seats)
+    PRIMARY KEY (name)
 );
 
 CREATE TABLE movies (
@@ -31,10 +31,9 @@ CREATE TABLE performances (
     day        DATE NOT NULL,
     movie_name  VARCHAR(32) NOT NULL,
     theater_name    VARCHAR(32) NOT NULL,
-    theater_seats   INT NOT NULL,
     PRIMARY KEY (day, movie_name),
     FOREIGN KEY (movie_name) references movies(name),
-    FOREIGN KEY (theater_name, theater_seats) references theaters(name,seats)
+    FOREIGN KEY (theater_name) references theaters(name)
 );
 
 CREATE TABLE reservations (
@@ -53,6 +52,6 @@ INSERT INTO theaters        VALUES('SF', 2);
 
 INSERT INTO movies          VALUES('Kung Fu Hustle');
 
-INSERT INTO performances    VALUES('2017-02-01', 'Kung Fu Hustle', 'SF', 2);
+INSERT INTO performances    VALUES('2017-02-01', 'Kung Fu Hustle', 'SF');
 
 INSERT INTO reservations    VALUES(0, 'Kung Fu Hustle', '2017-02-01', 'jacka');
