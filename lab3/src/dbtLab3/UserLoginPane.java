@@ -98,7 +98,7 @@ public class UserLoginPane extends BasicPane {
             }
             
             else {
-            	displayMessage("Failed to logon, check your fucking username dickfucker");
+            	displayMessage("Failed to logon.");
             }
             
             

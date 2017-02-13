@@ -297,17 +297,17 @@ public class BookingPane extends BasicPane {
             
             int seats = Integer.parseInt(fields[FREE_SEATS].getText());
             
-            if(seats < 0) {
+            if(seats > 0) {
             	int nbr = db.createReservation(movieName, date);
             	
-                displayMessage("Fuck: " + nbr);
+                displayMessage("Reservation number: " + nbr);
                 
                 fields[FREE_SEATS].setText("" + (seats - 1));
 
                 return;
             }
             
-            displayMessage("Check your fucking calendar fucking whore");
+            displayMessage("No seats left for you, sorry.");
         }
     }
 }

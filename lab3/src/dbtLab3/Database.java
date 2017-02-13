@@ -137,6 +137,31 @@ public class Database {
     	
     }
     
+    public int getFreeSeats(String theater) {
+    	String sql =
+    				"SELECT seats\n"
+    			+ 	"FROM theaters\n"
+    			+ 	"WHERE name = '" + theater + "'";
+    	
+    	Statement st;
+    	ResultSet rs;
+    	
+    	try {
+    		st = conn.createStatement();
+    		rs = st.executeQuery(sql);
+    		
+    		if(!rs.next()) {
+    			return 0;
+    		}
+    		
+    		return rs.getInt("seats");
+    	} catch(SQLException e) {
+    		e.printStackTrace();
+    	}
+    	
+    	return -1;
+    }
+    
     public ArrayList<String> getMovieInformation(String movie, String day) {
     	ArrayList<String> information = new ArrayList<>();
     	
@@ -160,7 +185,9 @@ public class Database {
 			information.add(rs.getString("day"));
 			information.add(rs.getString("theater_name"));
 			
-			int seats = rs.getInt("theater_seats") - getSeats(movie, day);
+			int bookings = getSeats(movie, day);
+			int seats = getFreeSeats(information.get(2)) - bookings;
+			//int seats = rs.getInt("theater_seats") - getSeats(movie, day);
 			
 			information.add(Integer.toString(seats));
 			

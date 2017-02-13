@@ -48,7 +48,7 @@ CREATE TABLE reservations (
 
 INSERT INTO users           VALUES('jacka', 'Lund', 'NickoYeah', '112');
 
-INSERT INTO theaters        VALUES('SF', 2);
+INSERT INTO theaters        VALUES('SF', 200);
 
 INSERT INTO movies          VALUES('Kung Fu Hustle');
 
