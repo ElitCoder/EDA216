@@ -213,15 +213,27 @@ public class Database {
     				Statement st;
     		    	ResultSet rs;
     		    	try {
+    		    		conn.setAutoCommit(false);
     		    		st = conn.createStatement();
     		    		PreparedStatement ps = conn.prepareStatement(sql);
-    		    		ps.executeUpdate();
+    		    		int result = ps.executeUpdate();
     		    		rs = st.executeQuery(sql2);	
     					int nbr = 0;
     					
-    					while(rs.next()) {
-    						nbr = rs.getInt("reservation_number");
+    					if(result == 0) {
+    						conn.rollback();
+ 
     					}
+    					
+    					else {
+    						while(rs.next()) {
+        						nbr = rs.getInt("reservation_number");
+        					}
+    						
+    						conn.commit();
+    					}
+    					
+    					conn.setAutoCommit(true);
     					
     					return nbr;
 					} catch (SQLException e) {
